@@ -1,0 +1,21 @@
+import React from 'react';
+import classes from "./Buildcontrol.css"
+
+const Buildcontrol = (props) => {
+
+    return (
+        <div className={classes.Buildcontrol}>
+            <div className={classes.Label}>{props.label}</div>
+            <button 
+                className={classes.Less} 
+                onClick={props.removed} 
+                disabled={props.disabled}>less</button>
+            <button 
+                className={classes.More} 
+                onClick={props.added}>more</button>
+        </div>
+
+    );
+};
+
+export default Buildcontrol
