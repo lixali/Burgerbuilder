@@ -1,9 +1,15 @@
 import React from 'react';
 
 
-const layout = (props) => (
+const modal = (props) => {
+    return (
 
+        <div>
+            
+        </div>
 
-)
+    );
 
-export default layout
+};
+
+export default modal

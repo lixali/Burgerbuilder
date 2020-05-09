@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Aux from '../../Hoc/Aux'
 import Burger from '../../Component/Burger/Burger'
 import Buildcontrols from '../../Component/Burger/Buildcontrols/Buildcontrols'
+import Modal from '../../Component/UI/Modal/Modal'
+import Ordersummary from '../../Component/Burger/Ordersummary/Ordersummary'
 
 const INGREDIENT_PRICES = {
     salad : 0.5,
@@ -21,6 +23,7 @@ class Burgerbuilder extends Component {
         },
     totalprice: 4,
     purchasable: false ,
+    purchasing: false,
     }
 
     updatepurchasestate = (ingredients) => {
@@ -36,6 +39,17 @@ class Burgerbuilder extends Component {
         this.setState({purchasable: sum > 0})
     }
 
+    purchasehandler = () => {
+        this.setState({purchasing: true})
+
+    }
+    purchasecancelhandler = () => {
+        this.setState({purchasing: false})
+
+    }
+    purchasecontinuehandler = () => {
+        alert('You continue!')
+    }
     addingredienthandler = (type) => {  // be careful, I need to pass the type to this function
         const oldcount = this.state.ingredients[type];
         const updatedcount = oldcount + 1;  // only adding 1 ingredient at 1 time
@@ -80,12 +94,20 @@ class Burgerbuilder extends Component {
         return (
             <Aux>
                 <p>this is from burgerbuilder.js </p>
+                <Modal show={this.state.purchasing} modalclosed={this.purchasecancelhandler}>
+                    <Ordersummary 
+                    ingredients={this.state.ingredients} 
+                    cancel={this.purchasecancelhandler}
+                    continue={this.purchasecontinuehandler}
+                    totalprice={this.state.totalprice.toFixed(2)}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <Buildcontrols 
                     ingredientadded={this.addingredienthandler}
                     ingredientremoved={this.removeingredienthandler} 
                     disabled={disabledinfo}
                     purchasable={this.state.purchasable}
+                    ordered={this.purchasehandler}
                     price={this.state.totalprice}/>  /* remember to pass the "type" to the addingredienthandler */
             
             </Aux>

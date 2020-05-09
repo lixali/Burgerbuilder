@@ -18,11 +18,13 @@ const buildcontrols = (props) => {
             {controls.map(ctrl => (<Buildcontrol
                 key={ctrl.label}
                 label={ctrl.label}
-                added={() => props.ingredientadded(ctrl.type)}
+                added={() => props.ingredientadded(ctrl.type)}   // why do I need ()=> in here to make call the function????
                 removed={() => props.ingredientremoved(ctrl.type)}
                 disabled={props.disabled[ctrl.type]} />))}
             
-            <button className={classes.OrderButton} disabled={!props.purchasable}>Order Now</button>
+            <button className={classes.OrderButton} 
+                    disabled={!props.purchasable}
+                    onClick={props.ordered}>Order Now</button>
 
         </div>
     );  //disabled is is button built-in property, it can disbale the button
